@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 
 });
 
-//READ
+//READ PERSONAS
 router.get('/getUsers', async (req, res) => {
     let personas=[];
     sql = "select * from person";
@@ -31,6 +31,27 @@ router.get('/getUsers', async (req, res) => {
     })
 
     res.json(personas);
+})
+
+//READ PRODUCCION
+router.get('/getProd', async (req, res) => {
+    let produccion=[];
+    sql = "select * from produccion";
+
+    let result = await BD.Open(sql, [], false);
+    console.log(produccion);
+
+    result.rows.map(producto=>{
+
+        let useSchema ={
+            "ACTIVIDAD": producto[1],
+            "COMPLETED_QUANTITY": producto[6],
+        }
+        
+        produccion.push(useSchema)
+    })
+
+    res.json(produccion);
 })
 
 
