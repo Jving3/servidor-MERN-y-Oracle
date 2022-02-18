@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 //READ PERSONAS
 router.get('/getUsers', async (req, res) => {
     let personas=[];
-    sql = "select * from person";
+    sql = "select * from person where (USERNAME = 'jving' and CANT = 50)";
 
     let result = await BD.Open(sql, [], false);
     console.log(personas);
@@ -21,10 +21,11 @@ router.get('/getUsers', async (req, res) => {
     result.rows.map(person=>{
 
         let useSchema ={
-            "CODU": person[0],
+            "ID": person[0],
             "USERNAME": person[1],
             "FIRSTNAME": person[2],
             "LASTNAME": person[3],
+            "CANT": person[4],
         }
         
         personas.push(useSchema)
@@ -36,7 +37,7 @@ router.get('/getUsers', async (req, res) => {
 //READ PRODUCCION
 router.get('/getProd', async (req, res) => {
     let produccion=[];
-    sql = "select * from produccion";
+    sql = "select * from produccion where (FECHA = 'jueves, 7 de octubre de 2021' and USUARIO = 'kelly crespo')";
 
     let result = await BD.Open(sql, [], false);
     console.log(produccion);
@@ -44,8 +45,10 @@ router.get('/getProd', async (req, res) => {
     result.rows.map(producto=>{
 
         let useSchema ={
+            "USUARIO": producto[2],
             "ACTIVIDAD": producto[1],
             "COMPLETED_QUANTITY": producto[6],
+            "FECHA": producto[5],
         }
         
         produccion.push(useSchema)
